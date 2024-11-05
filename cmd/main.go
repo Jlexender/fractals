@@ -8,20 +8,20 @@ import (
 
 func main() {
 	const (
-		width, height          = 16384, 16384
+		width, height          = 2048, 2048
 		xMin, yMin, xMax, yMax = -2, -2, +2, +2
-		iterations             = 1000
+		iterations             = 100
 		contrast               = 15
 	)
 
-	generator := &gen.MandelbrotGenerator{
+	newton := &gen.NewtonGenerator{
 		Iterations: iterations,
 		Contrast:   contrast,
 	}
 
-	set := generator.GenerateSet(width, height, xMin, yMin, xMax, yMax)
+	set := newton.GenerateSet(width, height, xMin, yMin, xMax, yMax)
 
-	err := export.Image(set, "output.png")
+	err := export.Image(set, "newton.png")
 	if err != nil {
 		log.Fatalf("failed to export image: %v", err)
 	}
