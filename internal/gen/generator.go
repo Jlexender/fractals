@@ -5,7 +5,7 @@ import (
 )
 
 type SetGenerator interface {
-	GenerateSet(width, height int, xmin, ymin, xmax, ymax float64) [][]uint8
+	GenerateSet(width, height int, xMin, yMin, xMax, yMax float64) [][]uint8
 }
 
 type MandelbrotGenerator struct {
