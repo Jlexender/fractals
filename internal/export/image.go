@@ -7,25 +7,19 @@ import (
 	"os"
 )
 
-func Image(set [][]uint8, filename string) error {
+func SaveImage(set [][]color.RGBA, filename string) error {
 	height := len(set)
-	if height == 0 {
-		return nil
-	}
 	width := len(set[0])
-
-	img := image.NewGray(image.Rect(0, 0, width, height))
+	img := image.NewRGBA(image.Rect(0, 0, width, height))
 	for y := 0; y < height; y++ {
 		for x := 0; x < width; x++ {
-			img.SetGray(x, y, color.Gray{Y: set[y][x]})
+			img.Set(x, y, set[y][x])
 		}
 	}
-
-	f, err := os.Create(filename)
+	file, err := os.Create(filename)
 	if err != nil {
 		return err
 	}
-	defer f.Close()
-
-	return png.Encode(f, img)
+	defer file.Close()
+	return png.Encode(file, img)
 }
